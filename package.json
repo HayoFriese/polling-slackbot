@@ -1,0 +1,26 @@
+{
+  "name": "polling-slackbot",
+  "version": "1.0.0",
+  "description": "Oberon Slackbot for Polling",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HayoFriese/polling-slackbot.git"
+  },
+  "author": "Hayo Friese",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HayoFriese/polling-slackbot/issues"
+  },
+  "homepage": "https://github.com/HayoFriese/polling-slackbot#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.2.0",
+    "nodemon": "^1.18.9",
+    "slackbots": "^1.2.0"
+  }
+}
