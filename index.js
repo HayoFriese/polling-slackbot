@@ -1,59 +1,51 @@
 require('dotenv').config();
 
-const SlackBot = require('slackbots');
-const axios = require('axios');
+const { RTMClient } = require('@slack/rtm-api');
+const { WebClient } = require('@slack/web-api');
+const Oberpoll = require('./poll.js');
 
-const bot = new SlackBot({
-    token: process.env.SLACKBOT_OAUTH_TOKEN,
-    name: process.env.SLACKBOT_NAME
-});
+const token = process.env.SLACKBOT_OAUTH_TOKEN;
 
-// Start handler
-bot.on('start', () => {
-    let params = {
-        icon_emoji: ':dog:'
-    };
+const rtm = new RTMClient(token);
+const client = new WebClient(token);
 
-    bot.postMessageToChannel(
+rtm.on('error', (err) => {
+    console.log(err)
+
+    rtm.postMessageToChannel(
         process.env.SLACKBOT_CHANNEL_NAME,
-        'Get Ready To Vote with @Oberpoll',
-        params
+        `${error.msg.toCapitalize()}. Exited with code ${code}`
     );
 });
 
-bot.on('error', (err) => console.log(err));
-
 //Message Handler
-bot.on('message', (data) => {
-    console.log(data);
-    if(data.type !== 'message') {
+rtm.on('message', async (data) => {
+    // console.log(data);
+    if(data.type !== 'message' || data.subtype === 'bot_message' || !data.text.includes('poll')) {
         return;
     }
 
-    handleMessage(data.text);
+    let params = {
+        icon_emoji: ':bar_chart:'
+    };
+
+    try {
+        const poll = new Oberpoll(data.text, data.ts);
+        const blocks = poll.postMessage();
+        const result = await client.chat.postMessage({
+            icon_emoji: ':bar_chart:',
+            blocks: blocks,
+            channel: data.channel
+        });
+        console.log('Success!', result.ts);
+    }
+    catch (e) {
+        console.log(e.data.response_metadata.messages);
+    } 
 });
 
-const handleMessage = (message) =>{
-    if(message.includes(' poll')) {
-        chuckJoke();
-    }
-}
-
-const chuckJoke = () => {
-    const url = 'http://api.icndb.com/jokes/random/';
-
-    axios.get('http://api.icndb.com/jokes/random/')
-        .then(res => {
-            const joke = res.data.value.joke;
-
-            const params = {
-                icon_emoji: ':laughing:'
-            };
-            
-            bot.postMessageToChannel(
-                process.env.SLACKBOT_CHANNEL_NAME,
-                `Chuck Norris: ${joke}`,
-                params
-            );
-        });
-}
+(async () => {
+    // Connect to Slack
+    const { self, team } = await rtm.start();
+    console.log(self, team);
+})();
