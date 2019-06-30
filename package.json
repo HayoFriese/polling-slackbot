@@ -4,7 +4,7 @@
   "description": "Oberon Slackbot for Polling",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "concurrently \"nodemon slackbot/index.js\" \"node server/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +20,9 @@
   "dependencies": {
     "@slack/rtm-api": "^5.0.1",
     "@slack/web-api": "^5.0.1",
+    "concurrently": "^4.1.1",
     "dotenv": "^6.2.0",
+    "express": "^4.17.1",
     "nodemon": "^1.18.9"
   }
 }
