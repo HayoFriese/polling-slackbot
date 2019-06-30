@@ -4,7 +4,7 @@
   "description": "Oberon Slackbot for Polling",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"nodemon slackbot/index.js\" \"node server/server.js\"",
+    "start": "concurrently \"node slackbot/index.js\" \"node server/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
