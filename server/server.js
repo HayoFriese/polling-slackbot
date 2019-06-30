@@ -8,6 +8,6 @@ const PORT = process.env.PORT || 5000;
 app.set('views', './views');
 
 app.use(require('./controllers'));
-app.listen(PORT);
+// app.listen(PORT);
 console.log(`listening on port ${PORT}`);
-// http.createServer(app).listen(PORT, () => console.log(`Listening on ${hostname}:${ PORT }`));
+http.createServer(app).listen(PORT, () => console.log(`Listening on ${hostname}:${ PORT }`));
