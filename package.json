@@ -22,7 +22,6 @@
     "@slack/web-api": "^5.0.1",
     "concurrently": "^4.1.1",
     "dotenv": "^6.2.0",
-    "express": "^4.17.1",
-    "nodemon": "^1.18.9"
+    "express": "^4.17.1"
   }
 }
