@@ -20,7 +20,6 @@ rtm.on('error', (err) => {
 
 //Message Handler
 rtm.on('message', async (data) => {
-    // console.log(data);
     if(data.type !== 'message' || data.subtype === 'bot_message' || !data.text.includes('poll')) {
         return;
     }
