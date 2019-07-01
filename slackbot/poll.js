@@ -41,7 +41,7 @@ class Oberpoll {
                     "text": `${this.listOfEmojis[i]}`,
                     "emoji": true
                 },
-                "value": `select_${this.listOfEmojis[i].substr(1).slice(0, -1)}`
+                "value": `${this.listOfEmojis[i].substr(1).slice(0, -1)}`
             }
             buttonArr.push(buttonObj);
         }

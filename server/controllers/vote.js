@@ -1,8 +1,7 @@
-const path = require('path');
 const express = require('express')
 	, router = express.Router();
 
-router.use('/api/vote', function(req, res){
+router.post('/api', function(req, res){
 	console.log(req, res);
 });
 
