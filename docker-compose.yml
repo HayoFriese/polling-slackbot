@@ -1,0 +1,16 @@
+version: '3'
+services:
+  web:
+    container_name: "${DOCKER_PROJECT}-hayo_${DOCKER_ENVIRONMENT"
+    image: oberonamsterdam/pm2-git:10-alpine
+    restart: always
+    network_mode: "bridge"
+    volumes:
+      - .:/app/delegated
+      - $HOME/.ssh/id_rsa:/root/.ssh/id_rsa
+      - $HOME/.ssh/id_rsa:/root/.ssh/known_hosts
+    environment:
+      - "VIRTUAL_HOST=${DOCKER_VHOST}"
+      - "HTTPS_METHOD=${DOCKER_HTTPS_METHOD}"
+    entrypoint:
+      - /app/start.sh
